@@ -50,13 +50,13 @@ public class MainMenu implements Menu {
 					switch (commandNumber) {
 					
 					case 1:
-						menuToNavigate = new SingUpMenu();
+						menuToNavigate = new SignUpMenu();
 						break mainLoop;
 					case 2:
 						if (context.getLoggedInUser() == null) {
 							menuToNavigate = new SignInMenu();
 						} else {
-							menuToNavigate = new SingOutMenu();
+							menuToNavigate = new SignOutMenu();
 						}
 						break mainLoop;
 					case 3:
