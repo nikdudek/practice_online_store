@@ -1,5 +1,7 @@
 package practice_online_store.enteties.impl;
 
+import java.util.Arrays;
+
 import practice_online_store.enteties.Order;
 import practice_online_store.enteties.Product;
 
@@ -13,23 +15,27 @@ public class DefaultOrder implements Order {
 
 	@Override
 	public boolean isCreditCardNumberValid(String creditCardNumber) {
-		// <write your code here>
-		return false;
+		return creditCardNumber.toCharArray().length == AMOUNT_OF_DIGITS_IN_CREDIT_CARD_NUMBER
+				&& !creditCardNumber.contains(" ")
+				&& Long.parseLong(creditCardNumber) > 0;
 	}
 
 	@Override
 	public void setCreditCardNumber(String creditCardNumber) {
-		// <write your code here>
+		if (creditCardNumber == null) {
+			return;
+		}
+		this.creditCardNumber = creditCardNumber;
 	}
 
 	@Override
 	public void setProducts(Product[] products) {
-		// <write your code here>
+		this.products = products;
 	}
 
 	@Override
 	public void setCustomerId(int customerId) {
-		// <write your code here>
+		this.customerId = customerId;
 	}
 
 
@@ -40,8 +46,7 @@ public class DefaultOrder implements Order {
 	
 	@Override
 	public String toString() {
-		// <write your code here>
-		return null;
+		return "Order: customer id - " + this.getCustomerId() + "\t" + "credit card number - " + this.creditCardNumber + "\t" + "products - " + Arrays.toString(this.products);
 	}
 
 	
