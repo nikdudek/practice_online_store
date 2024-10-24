@@ -4,63 +4,75 @@ import practice_online_store.enteties.User;
 
 public class DefaultUser implements User {
 
+	private static int userCounter = 0;
 
-	// <write your code here>
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String password;
+	private String email;
+	
+	{
+		id = ++userCounter;
+	}
 	
 	public DefaultUser() {
 	}
 	
 	public DefaultUser(String firstName, String lastName, String password, String email) {
-		// <write your code here>
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.email = email;
 	}
 
 	@Override
 	public String getFirstName() {
-		// <write your code here>
-		return null;
+		return this.firstName;
 	}
 
 	@Override
 	public String getLastName() {
-		// <write your code here>
-		return null;
+		return this.lastName;
 	}
 
 	@Override
 	public String getPassword() {
-		// <write your code here>
-		return null;
+		return this.password;
 	}
 
 	@Override
 	public String getEmail() {
-		// <write your code here>
-		return null;
+		return this.email;
 	}
 	
 	@Override
 	public String toString() {
-		// <write your code here>
-		return null;
+		return "First Name: " + this.getFirstName() + "\t\t" + "Last Name: " + this.getLastName() + "\t\t" + "Email: " + this.getEmail();
 	}
 
 	@Override
 	public void setPassword(String password) {
-		// <write your code here>
+		if (password == null) {
+			return;
+		}
+		this.password = password;
 	}
 
 	@Override
 	public void setEmail(String newEmail) {
-		// <write your code here>
+		if (newEmail == null) {
+			return;
+		}
+		this.email = newEmail;
 	}
 
 	@Override
 	public int getId() {
-		// <write your code here>
-		return 0;
+		return this.id;
 	}
 	
 	void clearState() {
-		// <write your code here>
+		userCounter = 0;
 	}
 }
