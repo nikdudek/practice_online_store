@@ -78,7 +78,7 @@ public class ProductCatalogMenu implements Menu {
 		}
 	}
 	
-	private Product fetchProducts(String userInput) {
+	private Product fetchProduct(String userInput) {
 		int productIdToAddToCart = Integer.parseInt(userInput);
 		Product productToAddToCart = productManagementService.getProductById(productIdToAddToCart);
 		return productToAddToCart;

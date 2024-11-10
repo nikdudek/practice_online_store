@@ -48,9 +48,4 @@ public class DefaultOrder implements Order {
 	public String toString() {
 		return "Order: customer id - " + this.getCustomerId() + "\t" + "credit card number - " + this.creditCardNumber + "\t" + "products - " + Arrays.toString(this.products);
 	}
-
-	
-	
-	
-
 }
