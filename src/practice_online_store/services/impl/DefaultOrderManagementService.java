@@ -1,5 +1,7 @@
 package practice_online_store.services.impl;
 
+import java.util.Arrays;
+
 import practice_online_store.enteties.Order;
 import practice_online_store.services.OrderManagementService;
 
@@ -8,8 +10,12 @@ public class DefaultOrderManagementService implements OrderManagementService {
 	private static final int DEFAULT_ORDER_CAPACITY = 10;
 
 	private static DefaultOrderManagementService instance;
-
-	// <write your code here>
+	private int lastIndex;
+	private Order[] orders;
+	
+	{
+		orders = new Order[DEFAULT_ORDER_CAPACITY];
+	}
 	
 	public static OrderManagementService getInstance() {
 		if (instance == null) {
@@ -20,23 +26,60 @@ public class DefaultOrderManagementService implements OrderManagementService {
 
 	@Override
 	public void addOrder(Order order) {
-		// <write your code here>
+		if (order == null) {
+			return;
+		}
+		if(orders.length <= lastIndex) {
+			orders = Arrays.copyOf(orders, orders.length << 1);
+		}
+		orders[lastIndex++] = order;
 	}
 
 	@Override
 	public Order[] getOrdersByUserId(int userId) {
-		// <write your code here>
-		return null;
+		int amountOfUserOrders = 0;
+		for (Order order : orders) {
+			if (order != null && order.getCustomerId() == userId) {
+				amountOfUserOrders++;
+			}
+		}
+		
+		Order[] userOrders = new Order[amountOfUserOrders];
+		
+		int index = 0;
+		for (Order order : orders) {
+			if (order != null && order.getCustomerId() == userId) {
+				userOrders[index++] = order;
+			}
+		}
+		
+		return userOrders;
 	}
 
 	@Override
 	public Order[] getOrders() {
-		// <write your code here>
-		return null;
+		int nonNullOrdersAmount = 0;
+		for (Order order : orders) {
+			if (order != null) {
+				nonNullOrdersAmount++;
+			}
+		}
+		
+		Order[] nonNullOrders = new Order[nonNullOrdersAmount];
+		
+		int index = 0;
+		for (Order order : orders) {
+			if (order != null) {
+				nonNullOrders[index++] = order;
+			}
+		}
+		
+		return nonNullOrders;
 	}
 	
 	void clearServiceState() {
-		// <write your code here>
+		lastIndex = 0;
+		orders = new Order[DEFAULT_ORDER_CAPACITY];
 	}
 
 }
