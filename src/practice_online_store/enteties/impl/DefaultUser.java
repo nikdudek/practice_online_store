@@ -1,8 +1,10 @@
 package practice_online_store.enteties.impl;
 
+import java.io.Serializable;
+
 import practice_online_store.enteties.User;
 
-public class DefaultUser implements User {
+public class DefaultUser implements User, Serializable {
 
 	private static int userCounter = 0;
 
