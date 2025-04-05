@@ -2,6 +2,11 @@ package practice_online_store.storage.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import practice_online_store.enteties.User;
@@ -9,7 +14,22 @@ import practice_online_store.storage.UserStoringService;
 
 public class DefaultUserStoringService implements UserStoringService {
 	
+	private static DefaultUserStoringService instance;
 	private final File file;
+	
+	static {
+		instance = null;
+	}
+	
+	private DefaultUserStoringService() {
+	}
+	
+	public static DefaultUserStoringService getInstance() {
+		if(instance == null) {
+			instance = new DefaultUserStoringService();
+		}
+		return instance;
+	}
 	
 	{
 		file = new File("StorageDir" + File.separator + "users.csv");
@@ -30,6 +50,12 @@ public class DefaultUserStoringService implements UserStoringService {
 				user.getLastName() + File.pathSeparator + 
 				user.getEmail() + File.pathSeparator + 
 				user.getPassword();
+		
+		try {
+			Files.write(Paths.get("StorageDir", "users.txt"), textToWrite.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch(Exception e) {
+			e.printStackTrace();
+		};
 		//TODO user private static void writeNio() from lesson 129. as reference
 	}
 
