@@ -27,6 +27,14 @@ public class DefaultUser implements User, Serializable {
 		this.password = password;
 		this.email = email;
 	}
+	
+	public DefaultUser(Integer id, String firstName, String lastName, String password, String email) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.email = email;
+	}
 
 	@Override
 	public String getFirstName() {

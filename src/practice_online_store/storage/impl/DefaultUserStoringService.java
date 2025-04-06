@@ -9,8 +9,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import practice_online_store.enteties.User;
+import practice_online_store.enteties.impl.DefaultUser;
 import practice_online_store.storage.UserStoringService;
 
 public class DefaultUserStoringService implements UserStoringService {
@@ -29,9 +32,6 @@ public class DefaultUserStoringService implements UserStoringService {
 	
 	static {
 		instance = null;
-	}
-	
-	private DefaultUserStoringService() {
 	}
 	
 	public static DefaultUserStoringService getInstance() {
@@ -57,14 +57,28 @@ public class DefaultUserStoringService implements UserStoringService {
 					System.lineSeparator() + convertToStorableString(user).getBytes(), 
 					StandardCharsets.UTF_8,
 					StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public List<User> loadUsers() {
-		// TODO load all from a file, add as new lines to the list
+		try (var stream = Files.lines(Paths.get(ROOT_RESOURCES_FOLDER, USER_STORAGE_RESOURCE_FOLDER, USER_STORAGE_FILENAME))) {
+			return stream.filter(Objects::nonNull)
+					.filter(line -> !line.isEmpty())
+					.map(line -> {
+						String[] userElements = line.split(",");
+						return new DefaultUser(Integer.valueOf(userElements[USER_ID_INDEX]),
+								userElements[USER_FIRSTNAME_INDEX],
+								userElements[USER_LASTNAME_INDEX],
+								userElements[USER_PASSWORD_INDEX],
+								userElements[USER_EMAIL_INDEX]);
+					})
+					.collect(Collectors.toList());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
