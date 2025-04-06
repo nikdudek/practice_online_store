@@ -2,6 +2,7 @@ package practice_online_store.storage.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +14,15 @@ import practice_online_store.enteties.User;
 import practice_online_store.storage.UserStoringService;
 
 public class DefaultUserStoringService implements UserStoringService {
+	
+	private static final String 	USER_STORAGE_FILENAME = "names.csv";
+	private static final String 	ROOT_RESOURCES_FOLDER = "practice_online_store";
+	private static final String		USER_STORAGE_RESOURCE_FOLDER = "resources";
+	private static final int 		USER_ID_INDEX = 0;
+	private static final int 		USER_FIRSTNAME_INDEX = 1;
+	private static final int 		USER_LASTNAME_INDEX = 2;
+	private static final int 		USER_PASSWORD_INDEX = 3;
+	private static final int 		USER_EMAIL_INDEX = 4;
 	
 	private static DefaultUserStoringService instance;
 	private final File file;
@@ -31,32 +41,25 @@ public class DefaultUserStoringService implements UserStoringService {
 		return instance;
 	}
 	
-	{
-		file = new File("StorageDir" + File.separator + "users.csv");
-		if(!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	private String convertToStorableString(User user) {
+		String storableUser = user.getId() + "," +
+				user.getFirstName() + "," + 
+				user.getLastName() + "," + 
+				user.getPassword() + "," + 
+				user.getEmail();
+		return storableUser;
 	}
 
 	@Override
 	public void saveUser(User user) {
-		String textToWrite = 
-				user.getId() + File.pathSeparator +
-				user.getFirstName() + File.pathSeparator + 
-				user.getLastName() + File.pathSeparator + 
-				user.getEmail() + File.pathSeparator + 
-				user.getPassword();
-		
 		try {
-			Files.write(Paths.get("StorageDir", "users.txt"), textToWrite.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-		} catch(Exception e) {
+			Files.writeString(Paths.get(ROOT_RESOURCES_FOLDER, USER_STORAGE_RESOURCE_FOLDER, USER_STORAGE_FILENAME), 
+					System.lineSeparator() + convertToStorableString(user).getBytes(), 
+					StandardCharsets.UTF_8,
+					StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch(IOException e) {
 			e.printStackTrace();
-		};
-		//TODO user private static void writeNio() from lesson 129. as reference
+		}
 	}
 
 	@Override
