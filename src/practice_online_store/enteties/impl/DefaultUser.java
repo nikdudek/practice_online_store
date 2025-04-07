@@ -32,6 +32,7 @@ public class DefaultUser implements User, Serializable {
 	
 	public DefaultUser(Integer id, String firstName, String lastName, String password, String email) {
 		this.id = id;
+		userCounter--;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;

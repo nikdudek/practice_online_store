@@ -21,6 +21,18 @@ public class DefaultProductStoringService implements ProductStoringService {
 	private static final int 		PRODUCT_PRODUCTNAME_INDEX = 1;
 	private static final int 		PRODUCT_CATEGORYNAME_INDEX = 2;
 	private static final int 		PRODUCT_PRICE_INDEX = 3;
+	
+	private static DefaultProductStoringService instance;
+	
+	private DefaultProductStoringService() {
+	}
+	
+	public static DefaultProductStoringService getInstance() {
+		if (instance == null) {
+			instance = new DefaultProductStoringService();
+		}
+		return instance;
+	}
 
 	@Override
 	public List<Product> loadProducts() {

@@ -68,7 +68,6 @@ public class ProductCatalogMenu implements Menu {
 		System.out.print("Product ID to add to cart or enter 'checkout' to proceed with checkout: ");
 		Scanner sc = new Scanner(System.in);
 		String userInput = sc.next();
-		sc.close();
 		return userInput;
 	}
 	
