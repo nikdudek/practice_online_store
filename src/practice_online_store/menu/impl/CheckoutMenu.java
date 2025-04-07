@@ -25,6 +25,7 @@ public class CheckoutMenu implements Menu {
 			printMenuHeader();
 			Scanner sc = new Scanner(System.in);
 			String userInput = sc.next();
+			sc.close();
 			
 			if (!createOrder(userInput)) {
 				continue;

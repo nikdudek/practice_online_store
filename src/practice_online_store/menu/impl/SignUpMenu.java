@@ -32,6 +32,7 @@ public class SignUpMenu implements Menu {
 		String password = sc.next();
 		System.out.print("Please, enter your email: ");
 		
+		
 		sc = new Scanner(System.in);
 		String email = sc.nextLine();
 		

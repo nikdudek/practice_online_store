@@ -1,13 +1,11 @@
 package practice_online_store.storage.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -28,11 +26,6 @@ public class DefaultUserStoringService implements UserStoringService {
 	private static final int 		USER_EMAIL_INDEX = 4;
 	
 	private static DefaultUserStoringService instance;
-	private final File file;
-	
-	static {
-		instance = null;
-	}
 	
 	public static DefaultUserStoringService getInstance() {
 		if(instance == null) {
@@ -78,8 +71,8 @@ public class DefaultUserStoringService implements UserStoringService {
 					.collect(Collectors.toList());
 		} catch (IOException e) {
 			e.printStackTrace();
+			return Collections.emptyList();
 		}
-		return null;
 	}
 
 }

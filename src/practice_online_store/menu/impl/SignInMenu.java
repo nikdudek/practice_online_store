@@ -29,6 +29,8 @@ public class SignInMenu implements Menu {
 		System.out.print("Please, enter your password: ");
 		String userPassword = sc.next();
 		
+		sc.close();
+		
 		User user = userManagementService.getUserByEmail(userEmail);
 		if (user != null && user.getPassword().equals(userPassword)) {
 			System.out.printf("Glad to see you back %s %s", user.getFirstName() + user.getLastName() + System.lineSeparator());

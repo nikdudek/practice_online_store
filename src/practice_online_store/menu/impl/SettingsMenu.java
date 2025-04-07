@@ -30,6 +30,7 @@ public class SettingsMenu implements Menu {
 				System.out.print("Please, enter option or type 'menu' to navigate back to main menu: ");
 				Scanner sc = new Scanner(System.in);
 				String userInput = sc.next();
+				sc.close();
 				
 				if (userInput.equalsIgnoreCase(MainMenu.MENU_COMMAND)) {
 					menuToNavigate = new MainMenu();

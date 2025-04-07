@@ -6,6 +6,8 @@ import practice_online_store.enteties.User;
 
 public class DefaultUser implements User, Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	private static int userCounter = 0;
 
 	private int id;

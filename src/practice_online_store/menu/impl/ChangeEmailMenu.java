@@ -20,6 +20,7 @@ public class ChangeEmailMenu implements Menu {
 		String userInput = sc.next();
 		context.getLoggedInUser().setEmail(userInput);
 		System.out.println("Your email has been successfully changed");
+		sc.close();
 	}
 
 	@Override

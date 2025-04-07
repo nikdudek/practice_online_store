@@ -43,6 +43,7 @@ public class MainMenu implements Menu {
 				
 				System.out.print("User Input: ");
 				String userInput = sc.next();
+				sc.close();
 				if (userInput.equalsIgnoreCase(Main.EXIT_COMMAND)) {
 					System.exit(0);
 				} else {
